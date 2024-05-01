@@ -4,6 +4,13 @@ const util = require('util');
 
 const readTheFile = util.promisify(fs.readFile);
 
+const RandomId = () => {
+    return Math.floor((1 + Math.random()) * 0x10000)
+   .toString(16)
+   .substring(1);
+};
+
+
 const writeTheFile = (location, data) => {
     fs.writeFile(location, JSON.stringify(data), (err) => {
       if (err) {
@@ -36,6 +43,7 @@ if (title && text ) {
     const newNote = {
         title,
         text,
+        id: RandomId(),
     }
 
 appendTheFile(newNote, './db/db.json')
